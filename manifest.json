@@ -1,0 +1,21 @@
+{
+  "name": "Fleedom",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Creates discractions to end unwanted conversations at your computer",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["jquery-3.1.1.js","background.js"]
+  },
+  "commands": {
+    "test-hotkey": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K"
+      },
+      "description": "Testing hotkey"
+    }
+  }
+}
