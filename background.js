@@ -1,14 +1,21 @@
 
 chrome.commands.onCommand.addListener(function(command) {
   if(command === "test-hotkey"){
-    $.ajax({
-      type: "POST",
-      url: "http://textbelt.com/text",
-      data: {
-        number: 6308053330,
-        message:"Guess who got his API working?  Mwahahaha."
-      },
-      success: alert("AJAX request successful!")
-    });
+    chrome.storage.sync.get(
+      "phone-number",
+      function(item) {
+        if (!chrome.runtime.error && item["phone-number"] !== undefined) {
+          $.ajax({
+            type: "POST",
+            url: "http://textbelt.com/text",
+            data: {
+              number: item["phone-number"],
+              message:"Thank you for using Fleedom!"
+            },
+            success: alert("AJAX request successful!")
+          });
+        }
+      }
+    );
   }
 });
