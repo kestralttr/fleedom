@@ -12,11 +12,17 @@
     "scripts": ["jquery-3.1.1.js","background.js"]
   },
   "commands": {
-    "test-hotkey": {
+    "text-hotkey": {
       "suggested_key": {
         "default": "Ctrl+Shift+K"
       },
-      "description": "Testing hotkey"
+      "description": "Sends text"
+    },
+    "alert-hotkey": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M"
+      },
+      "description": "Activates alert"
     }
   }
 }

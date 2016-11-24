@@ -1,6 +1,6 @@
 
 chrome.commands.onCommand.addListener(function(command) {
-  if(command === "test-hotkey"){
+  if(command === "text-hotkey") {
     chrome.storage.sync.get(
       "phone-number",
       function(item) {
@@ -14,7 +14,7 @@ chrome.commands.onCommand.addListener(function(command) {
           //   },
           //   success: alert("AJAX request successful!")
           // });
-          // alert("stand-in request");
+          alert("text request");
 
 
           setTimeout(
@@ -25,6 +25,28 @@ chrome.commands.onCommand.addListener(function(command) {
           setTimeout(
             function() {chrome.browserAction.setBadgeText({text: ""});},
             750
+          );
+        }
+      }
+    );
+  } else if (command === "alert-hotkey") {
+    chrome.storage.sync.get(
+      "alert-message",
+      function(item) {
+        if (!chrome.runtime.error && item["alert-message"] !== undefined) {
+
+          setTimeout(
+            function() {chrome.browserAction.setBadgeText({text: "A"});
+              chrome.browserAction.setBadgeBackgroundColor({color: "gray"})},
+            50
+          );
+          setTimeout(
+            function() {chrome.browserAction.setBadgeText({text: ""});},
+            750
+          );
+          setTimeout(
+            function() {alert(item["alert-message"]);},
+            10000
           );
         }
       }
