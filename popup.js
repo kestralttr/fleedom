@@ -1,5 +1,4 @@
 
-
 document.body.onload = function() {
 
   chrome.storage.sync.get(

@@ -14,8 +14,8 @@ chrome.commands.onCommand.addListener(function(command) {
           //   },
           //   success: alert("AJAX request successful!")
           // });
-          alert("text request");
 
+          // alert("text request");
 
           setTimeout(
             function() {chrome.browserAction.setBadgeText({text: "T"});
@@ -35,6 +35,9 @@ chrome.commands.onCommand.addListener(function(command) {
       function(item) {
         if (!chrome.runtime.error && item["alert-message"] !== undefined) {
 
+          const alarmSound = new Audio();
+          alarmSound.src = "alarm_sound.mp3";
+
           setTimeout(
             function() {chrome.browserAction.setBadgeText({text: "A"});
               chrome.browserAction.setBadgeBackgroundColor({color: "gray"})},
@@ -45,7 +48,10 @@ chrome.commands.onCommand.addListener(function(command) {
             750
           );
           setTimeout(
-            function() {alert(item["alert-message"]);},
+            function() {
+              alarmSound.play();
+              alert(item["alert-message"]);
+            },
             10000
           );
         }
