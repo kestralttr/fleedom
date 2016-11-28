@@ -57,5 +57,9 @@ chrome.commands.onCommand.addListener(function(command) {
         }
       }
     );
+  } else if (command === "error-hotkey") {
+    // alert("error");
+      const newURL = "http://google.com";
+      chrome.tabs.create({url: newURL});
   }
 });
