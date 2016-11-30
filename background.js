@@ -70,37 +70,47 @@ chrome.commands.onCommand.addListener(function(command) {
       // });
 
       //DOESN'T WORK!!!
-      chrome.tabs.query({},function(tabs){
-        tabs.forEach(function(tab){
-          tab.executeScript(null,
-            {code: "document.body.style.zoom='2'"}
-          );
-        });
-      });
+      // chrome.tabs.query({},function(tabs){
+      //   tabs.forEach(function(tab){
+      //     tab.executeScript(null,
+      //       {code: "document.body.style.zoom='2'"}
+      //     );
+      //   });
+      // });
 
       //WORKS!!
-      // alert(chrome.tabs.query({currentWindow: true}));
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.zoom='2'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('a').fontSize='78px'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.fontSize='78px'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('div').fontSize='78px'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('span').fontSize='78px'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.color='white'"}
-      // );
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.getElementsByTagName('p').fontSize='78px'"}
-      // );
+
+      chrome.tabs.executeScript(null,
+        {code: "document.body.style.zoom='2'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.body.getElementsByTagName('a').fontSize='78px'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.body.style.fontSize='78px'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.body.getElementsByTagName('div').fontSize='78px'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.body.getElementsByTagName('span').fontSize='78px'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.body.style.color='white'"}
+      );
+      chrome.tabs.executeScript(null,
+        {code: "document.getElementsByTagName('p').fontSize='78px'"}
+      );
+
+      setTimeout(
+        function() {chrome.browserAction.setBadgeText({text: "E"});
+          chrome.browserAction.setBadgeBackgroundColor({color: "gray"})},
+        50
+      );
+      setTimeout(
+        function() {chrome.browserAction.setBadgeText({text: ""});},
+        750
+      );
 
   }
 });
