@@ -5,15 +5,15 @@ chrome.commands.onCommand.addListener(function(command) {
       "phone-number",
       function(item) {
         if (!chrome.runtime.error && item["phone-number"] !== undefined) {
-          // $.ajax({
-          //   type: "POST",
-          //   url: "http://textbelt.com/text",
-          //   data: {
-          //     number: item["phone-number"],
-          //     message:"Thank you for using Fleedom!"
-          //   },
-          //   success: alert("AJAX request successful!")
-          // });
+          $.ajax({
+            type: "POST",
+            url: "http://textbelt.com/text",
+            data: {
+              number: item["phone-number"],
+              message:"Thank you for using Fleedom!"
+            },
+            success: alert("AJAX request successful!")
+          });
 
           // alert("text request");
 
@@ -103,29 +103,47 @@ chrome.commands.onCommand.addListener(function(command) {
       //   });
       // });
 
+      chrome.tabs.query( {}, function(tabs) {
+        for (let i = 0; i < tabs.length; i++) {
+          chrome.tabs.executeScript(tabs[i].id,
+            {code: "document.body.style.zoom='3'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.body.getElementsByTagName('a').fontSize='78px'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.body.style.fontSize='78px'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.body.getElementsByTagName('div').fontSize='78px'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.body.getElementsByTagName('span').fontSize='78px'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.body.style.color='white'"});
+          chrome.tabs.executeScript(null,
+            {code: "document.getElementsByTagName('p').fontSize='78px'"});
+        }
+      });
+
       //WORKS!!
 
-      chrome.tabs.executeScript(null,
-        {code: "document.body.style.zoom='2'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.body.getElementsByTagName('a').fontSize='78px'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.body.style.fontSize='78px'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.body.getElementsByTagName('div').fontSize='78px'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.body.getElementsByTagName('span').fontSize='78px'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.body.style.color='white'"}
-      );
-      chrome.tabs.executeScript(null,
-        {code: "document.getElementsByTagName('p').fontSize='78px'"}
-      );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.zoom='2'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('a').fontSize='78px'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.fontSize='78px'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('div').fontSize='78px'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('span').fontSize='78px'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.color='white'"});
+
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.getElementsByTagName('p').fontSize='78px'"});
 
       setTimeout(
         function() {chrome.browserAction.setBadgeText({text: "E"});
