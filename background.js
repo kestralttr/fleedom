@@ -31,15 +31,6 @@ chrome.commands.onCommand.addListener(function(command) {
     );
   } else if (command === "alert-hotkey") {
 
-    chrome.notifications.create("test", {
-      iconUrl: "http://www.bigdogbiteshard.com/assets/graphic/Icons/signs_icons/Exclamation%20Mark%20(Error)/Exclamation%20Mark%20(Error)_512x512.png",
-      type: "basic",
-      title: "Reminder",
-      message: "Call doctor",
-      priority: 1,
-    });
-
-
     // chrome.notifications.create("notify1", {
     //   iconUrl: "http://www.google.com/favicon.ico",
     //   type: "basic",
@@ -53,10 +44,18 @@ chrome.commands.onCommand.addListener(function(command) {
       function(item) {
         if (!chrome.runtime.error && item["alert-message"] !== undefined) {
 
-
-
           const alarmSound = new Audio();
           alarmSound.src = "alarm_sound.mp3";
+          alarmSound.loop = true;
+
+          chrome.notifications.onClicked.addListener(function() {
+            alarmSound.pause();
+            alarmSound.currentTime = 0;
+            chrome.notifications.clear("alarm");
+          });
+          chrome.notifications.onClosed.addListener(function() {
+            alarmSound.pause();
+          });
 
           setTimeout(
             function() {chrome.browserAction.setBadgeText({text: "A"});
@@ -67,13 +66,19 @@ chrome.commands.onCommand.addListener(function(command) {
             function() {chrome.browserAction.setBadgeText({text: ""});},
             750
           );
-          // setTimeout(
-          //   function() {
-          //     alarmSound.play();
-          //     alert(item["alert-message"]);
-          //   },
-          //   10000
-          // );
+          setTimeout(
+            function() {
+              alarmSound.play();
+              chrome.notifications.create("alarm", {
+                iconUrl: "http://www.bigdogbiteshard.com/assets/graphic/Icons/signs_icons/Exclamation%20Mark%20(Error)/Exclamation%20Mark%20(Error)_512x512.png",
+                type: "basic",
+                title: "Reminder",
+                message: item["alert-message"],
+                priority: 1,
+              });
+            },
+            10000
+          );
         }
       }
     );
