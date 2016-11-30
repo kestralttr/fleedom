@@ -59,7 +59,48 @@ chrome.commands.onCommand.addListener(function(command) {
     );
   } else if (command === "error-hotkey") {
     // alert("error");
-      const newURL = "http://google.com";
-      chrome.tabs.create({url: newURL});
+      // const newURL = "http://google.com";
+      // chrome.tabs.create({url: newURL});
+
+      // DOESN'T WORK!!!
+      // let tabs = chrome.tabs.query({currentWindow: true, active: true});
+      // tabs.forEach(function(tab) {
+      //   tab.executeScript(null,
+      //   {code: "document.body.style.zoom='2'"})
+      // });
+
+      //DOESN'T WORK!!!
+      chrome.tabs.query({},function(tabs){
+        tabs.forEach(function(tab){
+          tab.executeScript(null,
+            {code: "document.body.style.zoom='2'"}
+          );
+        });
+      });
+
+      //WORKS!!
+      // alert(chrome.tabs.query({currentWindow: true}));
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.zoom='2'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('a').fontSize='78px'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.fontSize='78px'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('div').fontSize='78px'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.getElementsByTagName('span').fontSize='78px'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.body.style.color='white'"}
+      // );
+      // chrome.tabs.executeScript(null,
+      //   {code: "document.getElementsByTagName('p').fontSize='78px'"}
+      // );
+
   }
 });
