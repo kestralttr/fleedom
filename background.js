@@ -30,10 +30,30 @@ chrome.commands.onCommand.addListener(function(command) {
       }
     );
   } else if (command === "alert-hotkey") {
+
+    chrome.notifications.create("test", {
+      iconUrl: "http://www.bigdogbiteshard.com/assets/graphic/Icons/signs_icons/Exclamation%20Mark%20(Error)/Exclamation%20Mark%20(Error)_512x512.png",
+      type: "basic",
+      title: "Reminder",
+      message: "Call doctor",
+      priority: 1,
+    });
+
+
+    // chrome.notifications.create("notify1", {
+    //   iconUrl: "http://www.google.com/favicon.ico",
+    //   type: "basic",
+    //   title: "Primary Title",
+    //   message: "Primary message to display",
+    //   priority: 1,
+    // });
+
     chrome.storage.sync.get(
       "alert-message",
       function(item) {
         if (!chrome.runtime.error && item["alert-message"] !== undefined) {
+
+
 
           const alarmSound = new Audio();
           alarmSound.src = "alarm_sound.mp3";
@@ -47,13 +67,13 @@ chrome.commands.onCommand.addListener(function(command) {
             function() {chrome.browserAction.setBadgeText({text: ""});},
             750
           );
-          setTimeout(
-            function() {
-              alarmSound.play();
-              alert(item["alert-message"]);
-            },
-            10000
-          );
+          // setTimeout(
+          //   function() {
+          //     alarmSound.play();
+          //     alert(item["alert-message"]);
+          //   },
+          //   10000
+          // );
         }
       }
     );
