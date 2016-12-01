@@ -10,12 +10,9 @@ chrome.commands.onCommand.addListener(function(command) {
             url: "http://textbelt.com/text",
             data: {
               number: item["phone-number"],
-              message:"Thank you for using Fleedom!"
-            },
-            success: alert("AJAX request successful!")
+              message:"Thank you for using Fleedom!  We hope you got away safely.  ;)"
+            }
           });
-
-          // alert("text request");
 
           setTimeout(
             function() {chrome.browserAction.setBadgeText({text: "T"});
@@ -30,14 +27,6 @@ chrome.commands.onCommand.addListener(function(command) {
       }
     );
   } else if (command === "alert-hotkey") {
-
-    // chrome.notifications.create("notify1", {
-    //   iconUrl: "http://www.google.com/favicon.ico",
-    //   type: "basic",
-    //   title: "Primary Title",
-    //   message: "Primary message to display",
-    //   priority: 1,
-    // });
 
     chrome.storage.sync.get(
       "alert-message",
@@ -70,7 +59,7 @@ chrome.commands.onCommand.addListener(function(command) {
             function() {
               alarmSound.play();
               chrome.notifications.create("alarm", {
-                iconUrl: "http://www.bigdogbiteshard.com/assets/graphic/Icons/signs_icons/Exclamation%20Mark%20(Error)/Exclamation%20Mark%20(Error)_512x512.png",
+                iconUrl: "eMark.png",
                 type: "basic",
                 title: "Reminder",
                 message: item["alert-message"],
@@ -83,25 +72,6 @@ chrome.commands.onCommand.addListener(function(command) {
       }
     );
   } else if (command === "error-hotkey") {
-    // alert("error");
-      // const newURL = "http://google.com";
-      // chrome.tabs.create({url: newURL});
-
-      // DOESN'T WORK!!!
-      // let tabs = chrome.tabs.query({currentWindow: true, active: true});
-      // tabs.forEach(function(tab) {
-      //   tab.executeScript(null,
-      //   {code: "document.body.style.zoom='2'"})
-      // });
-
-      //DOESN'T WORK!!!
-      // chrome.tabs.query({},function(tabs){
-      //   tabs.forEach(function(tab){
-      //     tab.executeScript(null,
-      //       {code: "document.body.style.zoom='2'"}
-      //     );
-      //   });
-      // });
 
       chrome.tabs.query( {}, function(tabs) {
         for (let i = 0; i < tabs.length; i++) {
@@ -122,29 +92,6 @@ chrome.commands.onCommand.addListener(function(command) {
         }
       });
 
-      //WORKS!!
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.zoom='2'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('a').fontSize='78px'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.fontSize='78px'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('div').fontSize='78px'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.getElementsByTagName('span').fontSize='78px'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.body.style.color='white'"});
-
-      // chrome.tabs.executeScript(null,
-      //   {code: "document.getElementsByTagName('p').fontSize='78px'"});
-
       setTimeout(
         function() {chrome.browserAction.setBadgeText({text: "E"});
           chrome.browserAction.setBadgeBackgroundColor({color: "gray"})},
@@ -154,6 +101,5 @@ chrome.commands.onCommand.addListener(function(command) {
         function() {chrome.browserAction.setBadgeText({text: ""});},
         750
       );
-
   }
 });
