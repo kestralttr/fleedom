@@ -2,96 +2,42 @@
 
 ## Background
 
-Have you ever had a moment where you're busy working on the computer, but a co-worker, supposed-friend, or roommate decides to start a full-fledged conversation with you?  It can be hard to get them to leave you alone without coming across as offensive.  However, this Chrome extension solves such dicey social situations by providing a number of options to get you back to work in no time.
+Have you ever had a moment where you're busy working on the computer, but a co-worker, supposed-friend, or roommate decides to start a full-fledged conversation with you?  It can be hard to get them to leave you alone without coming across as rude.  However, this Chrome extension solves such dicey social situations by providing a number of options to get you back to work (or play) in no time.
 
-Fleedom can generate a number of seemingly innocent excuses through hotkey assignment, allowing you to covertly execute whichever one best fits the situation, which will provide you a socially acceptable reason to cut short the conversation without discomfort.
+Fleedom can generate a number of seemingly innocent excuses through hotkey assignment, allowing you to covertly execute whichever one best fits the situation, which will provide you a socially acceptable reason to cut short the conversation without discomfort.  
 
 ## Functionality & MVP
 
-This extension will allow users to:
+This extension allows users to:
 
   - Send a text to their phone.
-  - Sound an immediate reminder alarm on their computer.
-  - Distort a webpage enough to warrant an urgent call to "tech support".
+  - Sound a slightly delayed (to avoid suspicion) reminder alarm on their computer.
+  - Distort all the tabs on the current window enough to warrant an urgent call to "tech support".
   - Use hotkeys to activate these features.
-  - Save data via popup buttons.
+  - Save data via popup button.
 
-## Wireframes
+## Screenshots
 
-![fleedom_menu](docs/wireframes/Fleedom_menu.png)  
+![fleedom_screenshot](fleedom_screenshot2.png)
 
-## Technologies & Challenges
+The displayed webpage is using the distort feature, and the popup shows where the phone number and alert message can be viewed, updated, and saved.
 
-While this extension will be largely based on the standard HTML, CSS, and JavaScript technology, the first challenge it faces is the need to make an external API request in order to send a text message.
+## Strategies and Workings
 
-With this in mind, it will need to import jQuery in order to make AJAX calls to work with the external Textbelt API that will be responsible for firing the request to send a text message to the specified number.
+As with all Chrome extensions, Fleedom relies heavily upon HTML, CSS, and JavaScript technology, while also using a spot of jQuery in order to facilitate an AJAX request.
 
-In addition, Fleedom will need the capability to save both the phone number and the reminder/alert message.  This will require us to use the Chrome storage API so that users can log into Chrome on another computer or after an expired session and still find their settings the same as they left them.
+Surprisingly, the most intensive part of this project was learning how to correctly use the internal Chrome APIs like 'storage', 'notifications', and 'tabs'.  While not difficult to conceptualize, the Chrome API syntax documentation tends to encourage experimentation.  So after much trial and error, Fleedom now uses 3 internal Chrome APIs.
 
-The function that imitates a webpage error will likely need to search for text to reformat and even replace, which will be done using a jQuery to identify HTML elements and reassign their classes to match the styling present in an included CSS file.
+The Storage API is used to store the phone number and alert message.  The stored data is used to fill the text fields in the popup when it is opened, so the text fields allow you to view the saved data as well as overwrite it.  This data is used internally to supply the phone number for the AJAX call to the Textbelt API in order to send a phone a text, and also to fill in the message for the fake alert/reminder functionality.
 
-Finally, Fleedom will need to constantly run event listeners, waiting for the hotkeys that will fire off the respective events.
+The Notifications API is used to replicate a fake Google notification with previously stored data.  The audio alert accompanying the notification was taken from Google's countdown timer and pauses/resets when the fake notification is dismissed.
 
-Overall, Fleedom will contain the following files:
+The Tabs API is used to gather an array of all the tab IDs for the current window, to which destructive styling is applied upon activation of the fake error feature.  This styling is achieved by overwriting each respective tab's CSS with JavaScript code.
 
-  - manifest.json
-    - The standard Chrome extension file that will run Fleedom in the background on every page.
+While Fleedom was initially designed to hold various files containing the code for each action, the fact that each action needed to be constantly listening for its respective hotkey, along with the relatively small amount of code that each action required (approximately 30 lines each), made it preferable to store all hotkey-related code in the background.js file, which constantly runs in the background and listens for hotkeys.
 
+## Future Plans
 
-  - background.js
-    - This file will wait for hotkeys that will activate the corresponding function.
+Fleedom's texting feature is limited by the Textbelt API, which means that adding additional functionality would likely be impossible.  However, the alert functionality could be further customizable.  For instance, users could specify how long the delay is between hotkey activation and alert appearance.
 
-
-  - textMessage.js
-    - This file will contain the code necessary to fire off an API request to send a text to the specified number.
-
-
-  - alert.js
-    - This file will contain code to sound an alert based on the pre-defined message.
-
-
-  - pageError.js
-    - This file will contain code to imitate a page error.
-
-
-  - popup.html
-    - This file will contain the menu that shows the hotkey assignments and also the option to change the phone number and alert message.
-
-
-  - popup.js
-    - This file will contain the code that saves (or overwrites) the phone number and reminder/alert message using Chrome's storage API.
-
-
-## Implementation Timeline
-
-### Day 1
-Build out the structure of the extension, ensuring that all files correctly communicate with each other.
-
-  - Complete manifest.json.
-  - Successfully incorporate jQuery.
-  - All files are in place and require each other correctly.
-
-### Day 2
-Begin hot key assignment testing and incorporation, as well as work on adding functionality for Textbelt API.
-
-  - Get background.js running, with hotkeys firing.
-  - Make a successful Textbelt API call via hotkey.
-
-## Day 3
-Build out popup to save phone number and message with Chrome storage API.
-
-  - Popup saves information via Chrome storage API.
-  - textMessage.js relies on saved information to make Textbelt API request.
-
-## Day 4
-Incorporate alert functionality using saved data.  Begin work on webpage error feature.
-
-  - alert.js relies on saved information to make Chrome storage API request.
-  - Alert is fired using hotkey.
-  - Use jQuery to identify current page elements.
-
-## Day 5
-Expand on page error feature with jQuery.  Create CSS file and successfully distort webpage.  Finish project.
-
-  - pageError.js & pageError.html fire upon hotkey assignment and mess up page formatting.
-  - All functions fire via hotkeys and app functionality is complete.
+The fake error functionality could be improved in a number of ways, most importantly it could be adjusted to be toggle-able so that even opening new tabs would result in the same error behavior, which would likely convince even the most persistent target.  Also, the CSS modifications could be customizable so that users could adjust what happens to their tabs when an "error" is simulated.
