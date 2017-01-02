@@ -8,11 +8,14 @@
         font-family: Verdana;
         font-size:12px;
       }
+      #hotkey {
+        font-size:10px;
+      }
       .popupContainerDiv {
         width: 170px;
         min-width: 170px;
-        min-height:200px;
-        max-height: 200px;
+        min-height:260px;
+        max-height: 260px;
         padding: 5px;
         background-color: white;
         font-family: Verdana;
@@ -46,11 +49,20 @@
         <span class="title">Fleedom</span><br></br>
         <hr>
         <span>Phone Number</span>
-        <input id="phone-number" type="text" maxlength="10"><br></br>
+        <input id="phone-number" type="text" maxlength="10">
+        <span id="hotkey">Command+Shift+K for text</span><br></br>
 
         <span>Alert Message</span>
         <input id="alert-message" type="text" value="" maxlength="100">
-        <br></br><button type="button" id="set-data">Save</button>
+        <span id="hotkey">Command+Shift+M for alert</span><br></br>
+
+        <span>Distort Open Tabs</span>
+        <span id="hotkey">Command+Shift+E for distortion</span><br></br>
+
+        <button type="button" id="set-data">Save</button>
+
+
+
     </div>
     <script src="popup.js"></script>
   </body>
